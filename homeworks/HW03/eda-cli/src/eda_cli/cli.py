@@ -67,6 +67,8 @@ def report(
     sep: str = typer.Option(",", help="Разделитель в CSV."),
     encoding: str = typer.Option("utf-8", help="Кодировка файла."),
     max_hist_columns: int = typer.Option(6, help="Максимум числовых колонок для гистограмм."),
+    title: str = typer.Option("EDA-отчёт",help="Заголовок отчёта (# ... в начале report.md)."),
+    min_missing_share: float = typer.Option(0.5,help="Порог доли пропусков, выше которого колонка считается проблемной и попадает в отдельный список в отчёте.")
 ) -> None:
     """
     Сгенерировать полный EDA-отчёт:
@@ -89,7 +91,7 @@ def report(
     top_cats = top_categories(df)
 
     # 2. Качество в целом
-    quality_flags = compute_quality_flags(summary, missing_df)
+    quality_flags = compute_quality_flags(summary, missing_df, min_missing_share)
 
     # 3. Сохраняем табличные артефакты
     summary_df.to_csv(out_root / "summary.csv", index=False)
@@ -102,16 +104,22 @@ def report(
     # 4. Markdown-отчёт
     md_path = out_root / "report.md"
     with md_path.open("w", encoding="utf-8") as f:
-        f.write(f"# EDA-отчёт\n\n")
+        f.write(f"# "+title+"\n\n")
         f.write(f"Исходный файл: `{Path(path).name}`\n\n")
         f.write(f"Строк: **{summary.n_rows}**, столбцов: **{summary.n_cols}**\n\n")
 
         f.write("## Качество данных (эвристики)\n\n")
+        if min_missing_share!=0.5:
+            f.write(f"Порог доли пропусков был изменён, новый порог: **{min_missing_share}**\n\n")
         f.write(f"- Оценка качества: **{quality_flags['quality_score']:.2f}**\n")
+
         f.write(f"- Макс. доля пропусков по колонке: **{quality_flags['max_missing_share']:.2%}**\n")
         f.write(f"- Слишком мало строк: **{quality_flags['too_few_rows']}**\n")
         f.write(f"- Слишком много колонок: **{quality_flags['too_many_columns']}**\n")
+        
         f.write(f"- Слишком много пропусков: **{quality_flags['too_many_missing']}**\n\n")
+
+
 
         f.write("## Колонки\n\n")
         f.write("См. файл `summary.csv`.\n\n")
