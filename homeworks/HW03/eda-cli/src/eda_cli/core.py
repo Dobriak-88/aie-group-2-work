@@ -190,7 +190,7 @@ def compute_quality_flags(summary: DatasetSummary, missing_df: pd.DataFrame, min
             if df[column].unique().size==1:
                 flags["has_constant_columns"]=True
         flags["has_suspicious_id_duplicates"]=False # проверка, что идентификатор (например, user_id) уникален; при наличии дубликатов выставлять флаг.
-        if "user_id" in missing_df.columns: # Проверяем есть ли такая колонка
+        if "user_id" in df.columns: # Проверяем есть ли такая колонка
             flags["has_suspicious_id_duplicates"]=missing_df["user_id"].duplicated().any()
     # Простейший «скор» качества
     score = 1.0
