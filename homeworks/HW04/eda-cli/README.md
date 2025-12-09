@@ -1,6 +1,6 @@
 Добавлен новый эндпоинт `quality-flags-from-csv`
 
-Эндпоинт, который принимает CSV-файл, запускает EDA-ядро (summarize_dataset + missing_table + compute_quality_flags) и возвращает флаги оценки качества данных.
+Эндпоинт принимает CSV-файл, запускает EDA-ядро (summarize_dataset + missing_table + compute_quality_flags) и возвращает флаги оценки качества данных.
 
 Пример вызова:
 ```
