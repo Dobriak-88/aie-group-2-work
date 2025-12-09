@@ -259,7 +259,6 @@ class QualityFlagsResponse(BaseModel):
     tags=["quality"],
     summary="Флаги оценки качества по CSV-файлу с использованием EDA-ядра",
 )
-
 async def quality_flags_from_csv(file: UploadFile = File(...)) -> QualityFlagsResponse:
     """
     Эндпоинт, который принимает CSV-файл, запускает EDA-ядро
@@ -283,8 +282,7 @@ async def quality_flags_from_csv(file: UploadFile = File(...)) -> QualityFlagsRe
     # Используем EDA-ядро из S03
     summary = summarize_dataset(df)
     missing_df = missing_table(df)
-    flags_all = compute_quality_flags(summary, missing_df, 0.4, df)
-    print("Working")
+    flags_all = compute_quality_flags(summary, missing_df, df=df)
     for key in flags_all:
         flags_all[key]=str(flags_all[key])
-    return QualityFlagsResponse(flags_all)
+    return QualityFlagsResponse(flags=flags_all)
