@@ -184,12 +184,12 @@ def compute_quality_flags(summary: DatasetSummary, missing_df: pd.DataFrame, min
     max_missing_share = float(missing_df["missing_share"].max()) if not missing_df.empty else 0.0
     flags["max_missing_share"] = max_missing_share
     flags["too_many_missing"] = max_missing_share > min_missing_new
+    flags["has_constant_columns"]=False # флаг, показывающий, есть ли колонки, где все значения одинаковые.
+    flags["has_suspicious_id_duplicates"]=False # проверка, что идентификатор (например, user_id) уникален; при наличии дубликатов выставлять флаг.
     if df is not None: # проверка передали ли мы саму табдицу для проверки новых эвристик
-        flags["has_constant_columns"]=False
-        for column in df: # флаг, показывающий, есть ли колонки, где все значения одинаковые.
+        for column in df: 
             if df[column].unique().size==1:
                 flags["has_constant_columns"]=True
-        flags["has_suspicious_id_duplicates"]=False # проверка, что идентификатор (например, user_id) уникален; при наличии дубликатов выставлять флаг.
         if "user_id" in df.columns: # Проверяем есть ли такая колонка
             flags["has_suspicious_id_duplicates"]=df["user_id"].duplicated().any()
     # Простейший «скор» качества
