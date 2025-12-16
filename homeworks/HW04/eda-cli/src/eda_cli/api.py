@@ -248,7 +248,7 @@ async def quality_from_csv(file: UploadFile = File(...)) -> QualityResponse:
 class QualityFlagsResponse(BaseModel):
     """Ответ на запрос флагов качества датасета."""
     
-    flags: dict[str, str] | None = Field(
+    flags: dict | None = Field(
         default=None,
         description="Флаги с подробностями, значения могут быть любого типа",
     )
@@ -283,6 +283,4 @@ async def quality_flags_from_csv(file: UploadFile = File(...)) -> QualityFlagsRe
     summary = summarize_dataset(df)
     missing_df = missing_table(df)
     flags_all = compute_quality_flags(summary, missing_df, df=df)
-    for key in flags_all:
-        flags_all[key]=str(flags_all[key])
     return QualityFlagsResponse(flags=flags_all)
