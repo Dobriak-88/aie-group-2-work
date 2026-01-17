@@ -1,0 +1,18 @@
+{
+  "best_model_label": "GradientBoosting",
+  "test_metrics": {
+    "accuracy": 0.9106666666666666,
+    "f1": 0.8130232558139535,
+    "roc_auc": 0.9326500888860331,
+    "model": "GradientBoosting"
+  },
+  "search_summary": {
+    "best_params": {
+      "learning_rate": 0.1,
+      "max_depth": null,
+      "max_leaf_nodes": 63
+    },
+    "best_cv_roc_auc": 0.9290308503923509
+  },
+  "random_state": 42
+}
