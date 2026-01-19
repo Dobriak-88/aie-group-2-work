@@ -99,6 +99,8 @@
 | GradientBoosting | 0.910667 | 0.813023 | 0.932650 |
 | RandomForest | 0.894000 | 0.763510 | 0.929797 |
 | DecisionTree | 0.818667 | 0.619048 | 0.831701 |
+| LogisticRegression | 0.816222 | 0.571724 | 0.800890 |
+| DummyBaseline | 0.737333 | 0.000000 | 0.500000 |
 
 
 Победитель: GradientBoosting по параметру ROC-AUC
