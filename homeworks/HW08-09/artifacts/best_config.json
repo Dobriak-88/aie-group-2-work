@@ -1,0 +1,18 @@
+{
+    "input_dim": 784,
+    "hidden_dims": [
+        256,
+        128
+    ],
+    "num_classes": 47,
+    "dropout_p": 0.0,
+    "use_batchnorm": true,
+    "activation": "ReLU",
+    "optimizer": "Adam",
+    "lr": 0.001,
+    "batch_size": 128,
+    "seed": 42,
+    "dataset": "EMNIST_BALANCED",
+    "early_stopping_patience": 4,
+    "best_val_accuracy": 0.8486258865248227
+}
