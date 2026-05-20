@@ -106,14 +106,43 @@ python -m src.run_api
 **Проверка работоспособности:**  
 Откройте в браузере `http://localhost:8000/docs` – интерактивная документация Swagger.
 
-**Запуск через Docker**
+### 4.3. Предсказание через CLI (локально)
 
 ```bash
 cd project
-docker build -t car-price-predictor .
-docker run --rm -v "$(pwd)/artifacts:/app/artifacts" car-price-predictor src.train
-docker run -p 8000:8000 car-price-predictor src.run_api
+source .venv/bin/activate
+python -m src.predict input.csv --output-csv output.csv
 ```
+- `input.csv` – файл с признаками автомобилей (должен содержать те же колонки, что использовались при обучении).
+- `output.csv` – файл, в который будет добавлена колонка Predicted_Price.
+
+### 4.4. Запуск через Docker
+
+Сборка образа (один раз):
+
+```bash
+docker build -t car-price-predictor .
+```
+
+Обучение модели в Docker:
+
+```bash
+docker run --rm -v "$(pwd)/artifacts:/app/artifacts" car-price-predictor src.train
+```
+
+Запуск API в Docker:
+
+```bash
+docker run -p 8000:8000 -v "$(pwd)/artifacts:/app/artifacts" car-price-predictor src.run_api
+```
+
+Предсказание через CLI в Docker:
+
+```bash
+docker run --rm -v "$(pwd)/input.csv:/input.csv" -v "$(pwd)/output.csv:/output.csv" -v "$(pwd)/artifacts:/app/artifacts" car-price-predictor src.predict /input.csv --output-csv /output.csv
+```
+
+После выполнения команды файл `output.csv` появится в текущей папке с добавленной колонкой Predicted_Price.
 
 ---
 
