@@ -35,3 +35,5 @@ self-checklist.md
 .vscode/
 .idea/
 *.sublime-*
+
+.joblib
