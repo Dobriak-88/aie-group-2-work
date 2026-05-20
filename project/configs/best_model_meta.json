@@ -1,0 +1,22 @@
+{
+  "best_model_label": "RandomForest_Tuned",
+  "test_metrics": {
+    "mae": 0.2592935950274377,
+    "mse": 0.20212310929396163,
+    "rmse": 0.4495810375159985,
+    "model": "RandomForest_Tuned"
+  },
+  "search_summary": {
+    "best_params": {
+      "max_depth": null,
+      "max_features": 0.5,
+      "min_samples_leaf": 1,
+      "min_samples_split": 2,
+      "n_estimators": 300
+    },
+    "best_cv_score": -0.2284224748864921,
+    "scoring": "neg_mean_squared_error"
+  },
+  "random_state": 42,
+  "target": "log_price"
+}

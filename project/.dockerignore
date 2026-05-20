@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+*.egg
+.pytest_cache/
+.tox/
+.mypy_cache/
+
+# Артефакты и логи (не должны быть в образе)
+artifacts/
+logs/
+
+# Файлы окружения
+.env
+.env.*
+*.env
+
+# Системные и документация
+.git/
+.gitignore
+.dockerignore
+README.md
+report.md
+self-checklist.md
+
+# Временные файлы
+*.log
+*.tmp
+*.bak
+*.swp
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*

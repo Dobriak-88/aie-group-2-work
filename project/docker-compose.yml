@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  car-price-api:
+    build: .
+    container_name: car-price-api
+    ports:
+      - "8000:8000"                  # хост:контейнер
+    volumes:
+      - ./artifacts:/app/artifacts   # сохранение модели и препроцессора
+      - ./logs:/app/logs             # сохранение логов
+    environment:
+      - DATA_PATH=/app/src/data/cars.csv
+      - ARTIFACTS_PATH=/app/artifacts
+      - LOGS_PATH=/app/logs
+      - RANDOM_STATE=42
+    command: ["src.run_api"]
